@@ -1,11 +1,8 @@
-// check if i can add margin for the main content pane
-// check if i can use negative specific gaps??? (health status)
-// font color
-// use ratio instead of fixed sizes ???? possible 
-
-// what is plaf? possible explanation for grey text area default?
+// what is plaf? possible explanation for grey text area default? (OPTIONAL)
 import javax.swing.*;
 import javax.swing.border.LineBorder;
+// import javax.swing.plaf.DimensionUIResource;
+
 import java.awt.*;
 
 public class SpaceX {
@@ -28,12 +25,17 @@ public class SpaceX {
     JPanel row3 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel row4 = new JPanel(new FlowLayout(FlowLayout.LEFT));
     JPanel row5 = new JPanel(new GridLayout(1, 3, 5, 0));
+    JPanel row5_save = new JPanel();
+    JPanel row5_update = new JPanel();
+    JPanel row5_delete = new JPanel();
+    // place findSat inside a button to add empty border or "gaps"
+    JPanel findSatPanel = new JPanel();
 
     JLabel satId = new JLabel("Satellite ID");
     JTextField satIdField = new JTextField(20);
     JButton findSat = new JButton("Find Satellite");
     JLabel satName = new JLabel("Satellite Name");
-    JTextField satNameField = new JTextField(40);
+    JTextField satNameField = new JTextField(45);
     JLabel longi = new JLabel("Longitude");
     JTextField longiField = new JTextField(20);
     JLabel lati = new JLabel("Latitude");
@@ -46,24 +48,28 @@ public class SpaceX {
     JButton update = new JButton("Update");
     JButton delete = new JButton("Delete");
 
-    // Modification of Components
+    // components sizes 
+    findSat.setPreferredSize(new Dimension (280,23));
+    save.setPreferredSize(new Dimension (225,23));
+    update.setPreferredSize(new Dimension (225,23));
+    delete.setPreferredSize(new Dimension (225,23));
 
-    findSat.setPreferredSize(new Dimension (275,23));
-    save.setPreferredSize(new Dimension (225,20));
-    update.setPreferredSize(new Dimension (225,20));
-    delete.setPreferredSize(new Dimension (225,20));
-
+    // gaps 
     topPanel.setBorder(BorderFactory.createEmptyBorder(5, 10, 0, 10));
 
     satId.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 40));
-    // satIdField.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 30)); NOT WORKING WHY?
     satName.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 15));
+    findSatPanel.setBorder(BorderFactory.createEmptyBorder(0, 9, 0, 0));
     longi.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 45));
     elev.setBorder(BorderFactory.createEmptyBorder(0, 0, 0, 50));
-    // elev.setBorder(BorderFactory.createEmptyBorder(0, 10, 0, 0));
 
-    findSat.setBorder(new LineBorder(new Color(202,202,202), 1));
+    // border line 
+    findSat.setBorder(new LineBorder(new Color(202,202,202), 2));
+    save.setBorder(new LineBorder(new Color(202,202,202), 2));
+    update.setBorder(new LineBorder(new Color(202,202,202), 2));
+    delete.setBorder(new LineBorder(new Color(202,202,202), 2));
 
+    
     satIdField.setBorder(BorderFactory.createLineBorder(new Color(191,191,191), 2));
     satNameField.setBorder(BorderFactory.createLineBorder(new Color(191,191,191), 2));
     longiField.setBorder(BorderFactory.createLineBorder(new Color(191,191,191), 2));
@@ -71,9 +77,25 @@ public class SpaceX {
     elevField.setBorder(BorderFactory.createLineBorder(new Color(191,191,191), 2));
     healthStatField.setBorder(BorderFactory.createLineBorder(new Color(191,191,191), 2));
 
+    // component background
+    findSat.setBackground(new Color(223,223,223));
+    save.setBackground(new Color(223,223,223));
+    update.setBackground(new Color(223,223,223));
+    delete.setBackground(new Color(223,223,223));
+
+    // font color
+    satId.setForeground(new Color(97,160,255));
+    satName.setForeground(new Color(97,160,255));
+    longi.setForeground(new Color(97,160,255));
+    lati.setForeground(new Color(97,160,255));
+    elev.setForeground(new Color(97,160,255));
+    healthStat.setForeground(new Color(97,160,255)); 
+    // turn into a combo box ^^^
+
     row1.add(satId); 
     row1.add(satIdField);
-    row1.add(findSat);
+    findSatPanel.add(findSat);
+    row1.add(findSatPanel);
     row2.add(satName);
     row2.add(satNameField);
     row3.add(longi);
@@ -84,9 +106,12 @@ public class SpaceX {
     row4.add(elevField);
     row4.add(healthStat);
     row4.add(healthStatField);
-    row5.add(save);
-    row5.add(update);
-    row5.add(delete);
+    row5_save.add(save);
+    row5_update.add(update);
+    row5_delete.add(delete);
+    row5.add(row5_save);
+    row5.add(row5_update);
+    row5.add(row5_delete);
     topPanel.add(row1);
     topPanel.add(row2);
     topPanel.add(row3);
@@ -102,30 +127,44 @@ public class SpaceX {
     // border-layout is best used when attempting maximize space coupled with a south component according to oracle java docs
 
     JPanel bottomPanel = new JPanel(new BorderLayout());
+    JPanel bottomButtonPanel = new JPanel();
+    // add gap between center and south
 
     JTextArea textarea = new JTextArea(5, 20);
     JButton bottomButton = new JButton("ClearAll");
-    
-    textarea.setBorder(new LineBorder(new Color(108,108,108), 3));
-    textarea.setBackground(new Color(145,145,145));
 
+    // components sizes
+    bottomButton.setPreferredSize(new Dimension (200,23));
+    
+    // gaps
+    bottomPanel.setBorder(BorderFactory.createEmptyBorder(0, 10, 10, 10));
+
+    // border line
+    textarea.setBorder(new LineBorder(new Color(108,108,108), 3));
+    bottomButton.setBorder(new LineBorder(new Color(202,202,202), 2));
+
+    // component background
+    textarea.setBackground(new Color(145,145,145));
+    bottomButton.setBackground(new Color(223,223,223));
+
+    bottomButtonPanel.add(bottomButton);
     bottomPanel.add(textarea, BorderLayout.CENTER);
-    bottomPanel.add(bottomButton, BorderLayout.SOUTH);
+    bottomPanel.add(bottomButtonPanel, BorderLayout.SOUTH);
 
     return bottomPanel;
   }
 
   private static void changeFont (Component component, Font font) {
     component.setFont(font);
+    
     if (component instanceof Container) {
       for (Component child:((Container) component).getComponents()) {
         changeFont(child, font);
       }
     }
+    // automate changing font color?
   }
- 
-  // create a function for changing border of a component automatically? RESUME HERE
-  
+   
   private static void createAndShowGUI() {
     JFrame mainFrame = new JFrame("SpaceX Starlink Project");
     mainFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
